@@ -8,7 +8,7 @@ import {
   useMatch,
 } from "react-router-dom";
 import { useState } from "react";
-import { Table, Form, Button } from "react-bootstrap";
+import { Table, Form, Button, Alert, Navbar, Nav } from "react-bootstrap";
 
 const Home = () => (
   <div>
@@ -65,7 +65,7 @@ const Login = (props) => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    props.onLogin("mluukkai");
+    props.onLogin("pratiksha");
     navigate("/");
   };
 
@@ -145,17 +145,54 @@ function App() {
     : null;
 
   const [user, setUser] = useState(null);
+  const [message, setMessage] = useState(null);
   const login = (user) => {
     setUser(user);
+    setMessage(`Welcome ${user}`);
+    setTimeout(() => {
+      setMessage(null);
+    }, 10000);
   };
-
+  console.log("this is from user", user);
   const padding = {
     padding: 5,
   };
   return (
     <div className="container">
+      {message && <Alert variant="success">{message}</Alert>}
       <div>
-        <Link style={padding} to="/">
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="#" as="span">
+                <Link style={padding} to="/">
+                  home
+                </Link>
+              </Nav.Link>
+              <Nav.Link href="#" as="span">
+                <Link style={padding} to="/notes">
+                  notes
+                </Link>
+              </Nav.Link>
+              <Nav.Link href="#" as="span">
+                <Link style={padding} to="/users">
+                  users
+                </Link>
+              </Nav.Link>
+              <Nav.Link href="#" as="span">
+                {user ? (
+                  <em style={padding}>{user} logged in</em>
+                ) : (
+                  <Link style={padding} to="/login">
+                    login
+                  </Link>
+                )}
+              </Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+        {/* <Link style={padding} to="/">
           home
         </Link>
         <Link style={padding} to="/notes">
@@ -170,7 +207,7 @@ function App() {
           <Link style={padding} to="/login">
             login
           </Link>
-        )}
+        )} */}
       </div>
       <Routes>
         <Route path="/notes/:id" element={<Note note={note} />} />
@@ -180,7 +217,7 @@ function App() {
           path="/users"
           element={user ? <Users /> : <Navigate replace to="/login" />}
         />
-        <Route path="/login" element={<Login onLogin={login} />} />
+        <Route path="/login" element={<Login onLogin={login} user={user} />} />
         <Route path="/" element={<Home />} />
       </Routes>
     </div>
