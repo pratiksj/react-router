@@ -12,7 +12,7 @@ import { useState } from "react";
 const Home = () => (
   <div>
     {" "}
-    <h2>javascript</h2>{" "}
+    <h2>javascript is cool</h2>{" "}
   </div>
 );
 
