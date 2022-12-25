@@ -8,24 +8,48 @@ import {
   useMatch,
 } from "react-router-dom";
 import { useState } from "react";
+import { Table, Form, Button } from "react-bootstrap";
 
 const Home = () => (
   <div>
     {" "}
     <h2>javascript is cool</h2>{" "}
+    <p>
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      Lorem Ipsum has been the industry's standard dummy text ever since the
+      1500s, when an unknown printer took a galley of type and scrambled it to
+      make a type specimen book. It has survived not only five centuries, but
+      also the leap into electronic typesetting, remaining essentially
+      unchanged. It was popularised in the 1960s with the release of Letraset
+      sheets containing Lorem Ipsum passages, and more recently with desktop
+      publishing software like Aldus PageMaker including versions of Lorem
+      Ipsum.
+    </p>
   </div>
 );
 
 const Notes = ({ notes }) => (
   <div>
     <h2>Notes</h2>
-    <ul>
+    {/* <ul>
       {notes.map((note) => (
         <li key={note.id}>
           <Link to={`/notes/${note.id}`}>{note.content}</Link>
         </li>
       ))}
-    </ul>
+    </ul> */}
+    <Table striped>
+      <tbody>
+        {notes.map((note) => (
+          <tr key={note.id}>
+            <td>
+              <Link to={`/notes/${note.id}`}>{note.content}</Link>
+            </td>
+            <td>{note.user}</td>
+          </tr>
+        ))}
+      </tbody>
+    </Table>
   </div>
 );
 
@@ -48,7 +72,7 @@ const Login = (props) => {
   return (
     <div>
       <h2>login</h2>
-      <form onSubmit={onSubmit}>
+      {/* <form onSubmit={onSubmit}>
         <div>
           username: <input />
         </div>
@@ -56,7 +80,18 @@ const Login = (props) => {
           password: <input type="password" />
         </div>
         <button type="submit">login</button>
-      </form>
+      </form> */}
+      <Form onSubmit={onSubmit}>
+        <Form.Group>
+          <Form.Label>username:</Form.Label>
+          <Form.Control type="text" name="username" />
+          <Form.Label>password:</Form.Label>
+          <Form.Control type="password" />
+          <Button variant="primary" type="submit">
+            login
+          </Button>
+        </Form.Group>
+      </Form>
     </div>
   );
 };
@@ -83,6 +118,7 @@ const Note = ({ note }) => {
 
 function App() {
   const match = useMatch("/notes/:id");
+  //console.log("hy i ma matfh", match);
   const [notes, setNotes] = useState([
     {
       id: 1,
@@ -117,7 +153,7 @@ function App() {
     padding: 5,
   };
   return (
-    <div>
+    <div className="container">
       <div>
         <Link style={padding} to="/">
           home
