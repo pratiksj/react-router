@@ -39,6 +39,10 @@ const Footer = styled.div`
   margin-top: 1em;
 `;
 
+const Table = styled.table`
+  width: 90%;
+`;
+
 const Home = () => (
   <div>
     {" "}
@@ -67,7 +71,7 @@ const Notes = ({ notes }) => (
         </li>
       ))}
     </ul> */}
-    <Table striped>
+    <Table>
       <tbody>
         {notes.map((note) => (
           <tr key={note.id}>
