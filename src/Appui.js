@@ -19,6 +19,8 @@ import {
   TextField,
   Button,
   Alert,
+  AppBar,
+  Toolbar,
 } from "@mui/material";
 
 const Home = () => (
@@ -176,38 +178,27 @@ function App() {
     <Container>
       {message && <Alert severity="success">{message}</Alert>}
       <div>
-        {/* <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link href="#" as="span">
-                <Link style={padding} to="/">
-                  home
-                </Link>
-              </Nav.Link>
-              <Nav.Link href="#" as="span">
-                <Link style={padding} to="/notes">
-                  notes
-                </Link>
-              </Nav.Link>
-              <Nav.Link href="#" as="span">
-                <Link style={padding} to="/users">
-                  users
-                </Link>
-              </Nav.Link>
-              <Nav.Link href="#" as="span">
-                {user ? (
-                  <em style={padding}>{user} logged in</em>
-                ) : (
-                  <Link style={padding} to="/login">
-                    login
-                  </Link>
-                )}
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar> */}
-        <Link style={padding} to="/">
+        <AppBar position="static">
+          <Toolbar>
+            <Button color="inherit" component={Link} to="/">
+              home
+            </Button>
+            <Button color="inherit" component={Link} to="/notes">
+              notes
+            </Button>
+            <Button color="inherit" component={Link} to="/users">
+              users
+            </Button>
+            {user ? (
+              <em>{user} logged in</em>
+            ) : (
+              <Button color="inherit" component={Link} to="/login">
+                login
+              </Button>
+            )}
+          </Toolbar>
+        </AppBar>
+        {/* <Link style={padding} to="/">
           home
         </Link>
         <Link style={padding} to="/notes">
@@ -222,7 +213,7 @@ function App() {
           <Link style={padding} to="/login">
             login
           </Link>
-        )}
+        )} */}
       </div>
       <Routes>
         <Route path="/notes/:id" element={<Note note={note} />} />
